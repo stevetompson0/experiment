@@ -30,7 +30,7 @@ np.set_printoptions(precision=3)
 
 with open('facebook_combined_rwcc_score' + str(index) + '.txt', 'w+') as output_file:
     print "start getting hitting time matrix"
-    hitting_time_matrix = get_hitting_time_matrix(transition_matrix, output_file, index)
+    get_hitting_time_matrix(transition_matrix, output_file, index)
 
 print "finished"
 print "time needed: " + str(time.time() - time0)

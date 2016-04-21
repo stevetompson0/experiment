@@ -50,16 +50,18 @@ def get_hitting_time_matrix(transition_matrix, output_file, index):
         print "calculating j_hitting time"
         j_hitting_time = (np.mat(linalg.inv(np.subtract(I, j_matrix))) * np.mat(e).transpose()).transpose()
 
+        '''
         if j == 0:
             res = j_hitting_time
         else:
             res = np.concatenate((res, j_hitting_time), axis=0)
+        '''
 
         print "calculating rwcc score for node " + str(j)
 
         output_file.write(str(j) + ' ' + str(np.divide(np.float_(1), j_hitting_time.sum())))
         output_file.flush()
-    return res
+    #return res
 
 
 def get_random_walk_closeness_centrality(hitting_time_matrix, row):
