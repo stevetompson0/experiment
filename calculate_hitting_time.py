@@ -59,7 +59,7 @@ def get_hitting_time_matrix(transition_matrix, output_file, index):
 
         print "calculating rwcc score for node " + str(j)
 
-        output_file.write(str(j) + ' ' + str(np.divide(np.float_(1), j_hitting_time.sum())))
+        output_file.write(str(j) + ' ' + str(np.divide(np.float_(1), j_hitting_time.sum())) + '\n')
         output_file.flush()
     #return res
 
