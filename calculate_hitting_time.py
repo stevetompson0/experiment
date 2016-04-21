@@ -21,7 +21,7 @@ def get_transition_matrix(G):
     return res
 
 
-def get_hitting_time_matrix(transition_matrix):
+def get_hitting_time_matrix(transition_matrix, output_file, index):
     """
 
     :param transition_matrix: transition matrix for this graph
@@ -30,7 +30,13 @@ def get_hitting_time_matrix(transition_matrix):
     """
     size = transition_matrix.shape[0] - 1
     I = np.identity(size)
-    for j in range(size + 1):
+    if (index + 1) * 1000 > size:
+        upper_bound = size + 1
+    else:
+        upper_bound = (index + 1) * 1000
+    node_range = range(index * 1000, upper_bound)
+
+    for j in node_range:
         print "calculating " + str(j) + " out of " + str(size) + " row for hitting matrix"
         # delete j-th row
         print "delete j-th row"
@@ -43,10 +49,16 @@ def get_hitting_time_matrix(transition_matrix):
         e = np.ones(size)
         print "calculating j_hitting time"
         j_hitting_time = (np.mat(linalg.inv(np.subtract(I, j_matrix))) * np.mat(e).transpose()).transpose()
+
         if j == 0:
             res = j_hitting_time
         else:
             res = np.concatenate((res, j_hitting_time), axis=0)
+
+        print "calculating rwcc score for node " + str(j)
+
+        output_file.write(str(j) + ' ' + str(np.divide(np.float_(1), j_hitting_time.sum())))
+        output_file.flush()
     return res
 
 

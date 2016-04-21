@@ -6,6 +6,8 @@ import numpy as np
 from calculate_hitting_time import *
 import time
 
+index = 0
+
 G = nx.Graph()
 print "experiments start"
 time0 = time.time()
@@ -26,13 +28,9 @@ transition_matrix = get_transition_matrix(G)
 
 np.set_printoptions(precision=3)
 
-print "start getting hitting time matrix"
-hitting_time_matrix = get_hitting_time_matrix(transition_matrix)
-
-with open('facebook_combined_rwcc_score.txt', 'w+') as output_file:
-    for node in range(4039):
-        print "calculating rwcc score for node " + str(node)
-        output_file.write(str(node) + ' ' + str(get_random_walk_closeness_centrality(hitting_time_matrix, node)))
+with open('facebook_combined_rwcc_score' + str(index) + '.txt', 'w+') as output_file:
+    print "start getting hitting time matrix"
+    hitting_time_matrix = get_hitting_time_matrix(transition_matrix, output_file, index)
 
 print "finished"
 print "time needed: " + str(time.time() - time0)
